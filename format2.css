@@ -1,0 +1,326 @@
+/* all */
+a:link{
+    list-style-type: none;
+    text-decoration: none;
+}
+
+/* 目录fixed */
+*{
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #41DCE0;
+    position: relative;
+}
+#main{
+    background-color: white;
+    position: relative;
+}
+
+/* 对齐 */
+#search{
+    background-color: #41DCE0;
+    left: 0;
+    position:fixed;
+    top: 0;
+    width: 35%;
+    height: 100px;
+    z-index: 1;
+}
+#menu{
+    background-color: #41DCE0;
+    left:32.9%;
+    position: fixed;
+    top: 0;
+    width: 35%;
+    margin: 0;
+    height: 100px;
+    z-index: 2;
+}
+#header{
+    background-color: #41DCE0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 33%;
+    margin: 0;
+    height: 100px;
+    z-index: 1;
+}
+
+/* 主体位置 */
+#section{
+    position: absolute;
+    top: 250px;
+    margin: 0;
+}
+#main{
+    position: relative;
+    top: 80px;
+}
+
+/* 尾部定位 */
+#sidebar section:nth-child(3){
+    position: relative;
+    top: 150px;
+}
+#sidebar footer{
+    position: relative;
+    top: 150px;
+}
+
+/* 目录样式化1 */
+#search{
+    /* border: 1px solid black; */
+    padding:35px;
+}
+input{
+    width: 50%;
+    padding:10px;
+    height: 30px;
+}
+input[type=text]{
+    border: 2px solid #ccc;
+    box-sizing: border-box;
+    height: initial;
+    width: 80%;
+    outline: 0;
+    border-radius: 4px;
+    font-size: 12px;
+    background-color: white;
+    padding: 10px 15px 10px 30px;
+    -webkit-transition:width  0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+input[type=text]:hover{
+    height: initial;
+    width: 90%;
+    outline:2px solid #3584E6;
+    border:transparent;
+}
+input[type=text]:focus{
+    outline:2px solid #3584E6;
+    border:transparent;
+}
+
+/* 目录样式化2 */
+#menu{
+    border-right: 5px solid white;
+    border-left: 5px solid white;
+    display: flex;
+    /* border: 1px solid black; */
+}
+#menu .major{
+    display: inline-block;
+    /* border: 1px solid black;  */
+    margin-top: 0px;
+    padding: 17px;  
+}
+#menu ul{
+    display: inline-block;
+    /* border: 1px solid black; */
+    margin-top: 0px;
+    padding-top: 30px;
+}
+}
+#menu ul{
+    align-items: center;
+    justify-content: center;
+    display: block;
+    margin-left: -40px;
+}
+#menu ul li{
+    /* border: 1px solid black; */
+    align-items: center;
+    justify-content: center;
+    float: left;
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #3584E6;
+    margin: 5px;
+    padding: 5px 5px 5px 5px;
+    
+}
+#menu ul li a:link{
+    color: white;
+}
+
+/* 目录样式化3 */
+#header{
+    display: flex;
+    /* border: 1px solid black; */
+}
+
+#header .logo{
+    
+    margin-top: 40px;
+    margin-left: 30px;
+}
+#header .logo:link{
+    color: black;
+    font-size: 20px;
+}
+#header ul{
+    list-style-type: none;
+    margin-top: 5px;
+}
+#header ul li a{
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* 主体样式化 */
+
+
+
+
+/* all  list-style-type */
+li{
+    list-style-type: none;
+}
+a{
+    text-decoration: none;
+}
+
+/* 对统一button的定位 */
+article,#banner .content{
+    position: relative;
+}
+.button{
+    position:absolute;
+    right:20px;
+    bottom: 10px;
+    list-style-type: none;
+    background-color: #3584E6;
+    padding: 20px;
+    color: white;
+    font-weight: bold;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 20px;
+}
+
+
+/* 对统一major的设定 */
+
+.major{
+    display: block;
+    margin:0;
+    height: auto;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 20px;
+    margin-top: 20px;
+    width: 30%;
+    color: #3584E6;
+
+}
+
+/* banner内部样式调整 */
+#banner{
+    margin:30px 0;
+    display: flex;
+    flex-wrap: nowrap;
+    width: 80%;
+}
+#banner .content,.image{
+    margin-top: 30px;
+    float: left;
+}
+#banner .content{
+    width: 60%;
+    /* border: 1px black solid; */
+    vertical-align: middle;
+}
+#banner .image{
+    width:40%;
+}
+#banner .image img{
+    width: 124%;
+}
+#banner .content h1{
+    font-size: 2vw;
+    /* border: 1px solid black; */
+    text-align: center;
+}
+#banner .content p{
+    font-size: 20px;
+    padding: 20px;
+    text-indent: 35px;
+    text-align: justify;
+}
+
+/* section内部设定 */
+#main section:nth-child(3){
+    /* background-color: #3584E6; */
+    width: 100%;
+    padding: 20px;
+    /* border:#3584E6 1px solid; */
+}
+#main section:nth-child(3) article{
+    display: inline-block;
+    position: relative;
+    width: 20%;
+    background-color: rgba(169, 169, 169, 0.6) ;
+    margin: 20px;
+    padding: 8px;
+
+}
+#main section:nth-child(3) .major{
+    display: inline-block;
+    padding: 5px 10px 5px 10px;
+}
+
+
+
+#main section:nth-child(4){
+    margin: 0 0 0 0;
+    padding: 20px;
+    background-color: white
+}
+#main section:nth-child(4) .major{
+    display: inline-block;
+    padding: 5px 10px 5px 10px;
+}
+#main section:nth-child(4) article{
+    display: inline-block;
+    margin: 20px;
+    padding: 6px;
+    width: 90%;
+    background-color: rgba(169, 169, 169, 0.6);
+}
+
+#main section:nth-child(4) article p,img{
+    float: left;
+}
+#main section:nth-child(4) article h3{
+    float: left;
+    width: 20%;
+    padding-left: 20px;
+}
+#main section:nth-child(4) article p{
+    display: inline;
+    width: 60%;
+    padding: 20px;
+    font-size: 20px;
+    text-align: justify;
+    text-indent: 35px;
+}
+
+#sidebar section:nth-child(3){
+    margin: 10px;
+}
+
+#sidebar section:nth-child(3) .major{
+    width: 100%;
+}
+#sidebar section:nth-child(3) p{
+    text-align: justify;
+    text-indent: 35px;
+    padding-right: 10px;
+}
+
+#sidebar #footer{
+    left: 0;
+}
