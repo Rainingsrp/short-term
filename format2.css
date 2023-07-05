@@ -16,6 +16,7 @@ body{
 #main{
     background-color: white;
     position: relative;
+    
 }
 
 /* 对齐 */
@@ -54,6 +55,7 @@ body{
     position: absolute;
     top: 250px;
     margin: 0;
+    
 }
 #main{
     position: relative;
@@ -221,7 +223,7 @@ article,#banner .content{
     margin:30px 0;
     display: flex;
     flex-wrap: nowrap;
-    width: 80%;
+    width: 90%;
 }
 #banner .content,.image{
     margin-top: 30px;
@@ -253,8 +255,9 @@ article,#banner .content{
 /* section内部设定 */
 #main section:nth-child(3){
     /* background-color: #3584E6; */
-    width: 100%;
+    width: 103%;
     padding: 20px;
+    margin-left: 40px;
     /* border:#3584E6 1px solid; */
 }
 #main section:nth-child(3) article{
@@ -274,7 +277,7 @@ article,#banner .content{
 
 
 #main section:nth-child(4){
-    margin: 0 0 0 0;
+    margin: 0 0 0 40px;
     padding: 20px;
     background-color: white
 }
