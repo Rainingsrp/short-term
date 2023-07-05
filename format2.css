@@ -294,6 +294,9 @@ article,#banner .content{
 #main section:nth-child(4) article p,img{
     float: left;
 }
+#main section:nth-child(4) img{
+    margin-top: -28px;
+}
 #main section:nth-child(4) article h3{
     float: left;
     width: 20%;
