@@ -60,6 +60,7 @@ body{
 #main{
     position: relative;
     top: 80px;
+    
 }
 
 /* 尾部定位 */
@@ -174,9 +175,6 @@ input[type=text]:focus{
 }
 
 /* 主体样式化 */
-
-
-
 
 /* all  list-style-type */
 li{
@@ -311,16 +309,19 @@ article,#banner .content{
 }
 
 #sidebar section:nth-child(3){
-    margin: 10px;
+    margin: 0px;
+    left: 0;
 }
 
 #sidebar section:nth-child(3) .major{
     width: 100%;
+    margin-left: 0;
 }
 #sidebar section:nth-child(3) p{
-    text-align: justify;
+    text-align: left;
     text-indent: 35px;
-    padding-right: 10px;
+    padding-right: 0;
+    margin-left: 4px;
 }
 
 #sidebar #footer{
