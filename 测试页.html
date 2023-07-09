@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>聚宝盆</title>
+    <style>
+       #game-area {
+            position: relative;
+            background-image: url('8472.jpg');
+            margin: auto;
+            width: 1000px;
+            height: 800px;
+            background-color: #f2f2f2;
+            /* 添加其他样式以设计游戏区域 */
+        }
+        #start-button, #stop-button {
+            position: relative;
+            top: 50px;
+            left: 10px;
+            padding: 5px;
+            border-radius: 5px;
+            font-size: 28px;
+            color: white;
+            background-color: #77D9F0;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            border: none;
+            /* 添加其他样式以满足需求 */
+       }
+       #pot {
+            position: relative;
+            width: 2cm;
+            height: 2cm;
+            border-radius: 50%;
+        }
+        .game-score{
+            color:#77D9F0;
+            font-weight: bold;
+            font-size: 24px;
+            margin: 10px;
+        }
+        .game-durability{
+            margin: 10px;
+            color:#77D9F0;
+            font-weight: bold;
+            font-size: 24px;
+        }
+        #rank{
+            background-color: white;
+            width: 150px;
+            height: 100px;
+            margin: 20px;
+            position: fixed;
+            top: 240px;
+            border-radius: 5px;
+        }
+        body{
+            background-image: url('body.jpg');
+            background-size: cover;
+        }
+    </style>
+</head>
+<body>
+    <button id="start-button">开始游戏</button>
+    <button id="stop-button">停止游戏</button>
+    <div id="game-area"></div>
+    <div id="rank">
+        <div class="game-score">得分：0</div>
+        <div class="game-durability">耐久度：5</div>
+    </div>
+
+      <script>
+        var gameScore = document.querySelector('.game-score')
+        var gameDurability = document.querySelector('.game-durability')
+        var createNum = 500;
+        var sp = 20;
+        var gameArea = document.getElementById("game-area");
+        var startButton = document.getElementById("start-button");
+        var stopButton = document.getElementById("stop-button");
+        var score = 0;
+        var durability = 5;
+        var createGemOrStoneInterval = null;
+        var timer;
+
+        function playSoundMusic(){
+                var sound = new Audio("");
+                sound.play();
+            }
+
+        startButton.addEventListener("click", function() {
+            playSoundMusic();
+            timer = setTimeout(function() {
+                // 运行游戏区域的函数
+                runGameArea();
+            }, 3000);
+            var countdownArea = document.createElement('div');
+            countdownArea.style.zIndex = '100';
+            countdownArea.classList.add('countdown');
+            countdownArea.style.position = 'fixed';
+            countdownArea.style.top = '50%';
+            countdownArea.style.left = '50%';
+            countdownArea.style.transform = 'translate(-50%, -50%)';
+            countdownArea.style.fontSize = '24px';
+            countdownArea.style.fontWeight = 'bold';
+            countdownArea.style.textAlign = 'center';
+            document.body.appendChild(countdownArea);
+            // 倒计时3秒后运行游戏
+            var countdown = 3;
+            var countdownInterval = setInterval(function() {
+                countdown--;
+                countdownArea.innerText = countdown;
+                
+                if (countdown === 0) {
+                    clearInterval(countdownInterval);
+                    document.body.removeChild(countdownArea);
+                }
+            }, 1000);
+        });
+        
+
+        stopButton.addEventListener("click", function() {
+            clearTimeout(timer);
+            // 停止游戏并清除游戏区域
+            stopGameArea();
+        });
+
+        function runGameArea() {
+
+            // 创建聚宝盆
+            var pot = document.createElement("div");
+            pot.id = "pot"; 
+            gameArea.appendChild(pot);
+            var element = document.getElementById("pot");    
+            element.style.backgroundImage = "url('pot.png')";
+            element.style.backgroundSize = "cover";
+
+            // 限制聚宝盆在游戏区域内
+            gameArea.addEventListener('mousemove', function(e) {
+                pot.style.left = e.pageX - gameArea.offsetLeft  + 'px';
+                pot.style.top = e.pageY - gameArea.offsetTop + 'px';
+            });
+            // 运行游戏区域的函数的代码
+            createGemOrStoneInterval = setInterval(createGemOrStone, createNum); 
+            function createGemOrStone() {
+                var gemOrStone = document.createElement("div");
+                var size, color, score;
+                // 随机决定是创建宝石还是石头
+                if (Math.random() < 0.75) {
+                    // 创建宝石
+                    size = Math.random() < 0.33 ? 0.2 : (Math.random() < 0.5 ? 0.5 : 1);
+                    color = ["red", "yellow", "blue"][Math.floor(Math.random() * 3)];
+                    gemOrStone.score = size === 0.2 ? 2 : (size === 0.5 ? 3 : 5);
+                    gemOrStone.className = "gem";
+                } else {
+                    // 创建石头
+                    size = 3;
+                    color = "gray";
+                    gemOrStone.className = "stone";
+                }
+                // 设置宝石或石头的样式
+                gemOrStone.style.width = size + "cm";
+                gemOrStone.style.height = size + "cm";
+                gemOrStone.style.backgroundColor = color;
+                gemOrStone.style.position = "absolute";
+                gemOrStone.style.borderRadius = "50%";
+                gemOrStone.style.left = Math.random() * (gameArea.offsetWidth - size * 10) + "px";
+                gemOrStone.style.top = "0px";
+
+                gameLoop()
+                moveGemOrStone(gemOrStone)
+                // 将宝石或石头的元素添加到游戏区域
+                gameArea.appendChild(gemOrStone);
+
+                // 返回创建的宝石或石头的信息
+                return {
+                    element: gemOrStone,
+                    score: score
+                };
+            }
+
+            gameArea.style.cursor = 'none'; // 隐藏鼠标指针
+            function playSoundLose() {
+                var sound = new Audio("split.aac");
+                sound.play();
+            }
+            function playSoundF(){
+                var sound = new Audio("F.mp3");
+                sound.play();
+            }
+            function playSoundGem(){
+                var sound = new Audio("苍蝇.mp3");
+                sound.play();
+            }
+                
+            
+            
+            
+            // 在游戏的主循环中检查碰撞
+            function checkCollision(gemOrStone) {
+                var potRect = pot.getBoundingClientRect();
+                var gemOrStoneRect = gemOrStone.getBoundingClientRect();
+                // console.log(gemOrStoneRect)
+                if (potRect.left < gemOrStoneRect.right &&
+                    potRect.right > gemOrStoneRect.left &&
+                    potRect.top < gemOrStoneRect.bottom &&
+                    potRect.bottom > gemOrStoneRect.top) {
+                    // 发生碰撞
+                    if (durability === 1) {
+                        // 添加音效
+                        playSoundLose();
+                        
+                    }
+                    if(durability === 4){
+                        playSoundF();
+                    }
+                    if (gemOrStone.score > 0) {
+                        // 如果是宝石，增加得分
+                        playSoundGem();
+                        score += gemOrStone.score;
+                        gameScore.innerHTML = "得分："+score;
+                    } else {
+                        // 如果是石头，减少耐久度
+                        durability--;
+                        gameDurability.innerHTML = "耐久度："+durability
+                        if(durability === 0){
+                            stopGameArea();
+                        }
+                    }
+                    // 移除宝石或石头
+                    if(gemOrStone.parentNode !== null){
+                        gameArea.removeChild(gemOrStone);
+                    }  
+                }
+            }
+            function gameLoop() {
+                const gemsAndStones = document.querySelectorAll('.gem , .stone')
+                for (var i = 0; i < gemsAndStones.length; i++) {
+                    checkCollision(gemsAndStones[i]);
+                }
+                
+                if (score >= 40) {  // 当得分达到一定值时执行某些函数
+                    sp = 16;
+                    createNum = 100 ;
+                }else if(score >=80){
+                    sp = 6;
+                    createNum = 10;
+                }
+                if (durability <= 0) {
+                    endGame();
+                }
+            }
+        }
+        
+
+        function stopGameArea() {
+            clearInterval(createGemOrStoneInterval)
+            // 停止游戏并清除游戏区域的代码
+            while (gameArea.firstChild) {
+                gameArea.removeChild(gameArea.firstChild);
+            }
+            // 停止游戏
+            score = 0;
+            durability = 5;
+            gameScore.innerHTML = "得分："+score;
+            gameDurability.innerHTML = "耐久度："+durability
+            clearTimeout(timer);
+        }
+        
+        //宝石和石头运动轨迹和速度
+        function moveGemOrStone(element){
+            // width: 1000px;
+            // height: 800px;
+            let targetX1 = Math.random()*1000;
+            let targetY1 = 800;
+            let targetX2 = 1000;
+            let targetY2 =  Math.random()*800;
+            let targetX3 = 0;
+            let targetY3 = Math.random()*800;
+
+            let prop = Math.random();
+            if(prop < 0.33){
+                moveInterval(targetX1, targetY1, element)
+            }else if(prop >= 0.33 && prop < 0.66){
+                moveInterval(targetX2, targetY2, element)
+            }else{
+                moveInterval(targetX3, targetY3, element)
+            }
+        }
+        function moveInterval(targetX, targetY, element){
+
+            let currentX = parseInt(element.style.left);
+            let currentY = parseInt(element.style.top);
+            let speed = 100;
+            let deltaX = (targetX - currentX)/speed;
+            let deltaY = (targetY - currentY)/speed;
+
+            var moveAction = setInterval(function(){
+                if(speed < 0){
+                    clearInterval(moveAction)
+                    if(element.parentNode !== null){
+                        gameArea.removeChild(element)
+                    }
+                }else{
+                    currentX += deltaX;
+                    currentY += deltaY;
+                    element.style.left = currentX + "px";
+                    element.style.top = currentY + "px";
+                    speed --;
+                }
+                
+            }, sp)
+        }
+        function openPopup() {
+            // 创建文本窗口元素
+            var popup = document.createElement("div");
+            popup.id = "popup";
+            popup.style.position = "fixed";
+            popup.style.top = "50%";
+            popup.style.left = "50%";
+            popup.style.transform = "translate(-50%, -50%)";
+            popup.style.backgroundColor = "white";
+            popup.style.padding = "50px";
+            popup.style.borderRadius = "5px";
+            popup.style.border = "1px solid black";
+            // 创建文本元素
+            var text = document.createElement("p");
+            text.textContent = "你将用一个聚宝盆接住宝石，并获得积分，当积分达到一定值时或重新开始游戏，会有意想不到的效果。聚宝盆只有中心接触才能获得宝石，并且你将同时躲避灰色石头的到来。";
+            // text.style.
+            text.style.width = "150px";
+            text.style.margin = "0";
+            // 创建确认按钮元素
+            var confirmButton = document.createElement("button");
+            confirmButton.textContent = "确认";
+            confirmButton.style.position = "absolute";
+            confirmButton.style.bottom = "5px";
+            confirmButton.style.right = "5px";
+            confirmButton.addEventListener("click", function() {
+            // 点击确认按钮后，将窗口移动到屏幕右边
+            popup.style.left = "90%";
+            });
+
+            // 将文本元素和确认按钮添加到文本窗口中
+            popup.appendChild(text);
+            popup.appendChild(confirmButton);
+
+            // 将文本窗口添加到页面中
+            document.body.appendChild(popup);
+        }
+          // 在页面加载完成后调用openPopup函数
+            window.addEventListener("load", openPopup);
+    </script>
+</body>
+</html>
